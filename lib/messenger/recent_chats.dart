@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_church_location/database/saved_user.dart';
 import 'package:flutter_church_location/messenger/login_page.dart';
 import 'package:flutter_church_location/messenger/user_list_page.dart';
 import 'package:flutter_church_location/models/user_object.dart';
+import 'package:flutter_church_location/profile_fragment_screens/my_profile_page.dart';
 
 class RecentChats extends StatefulWidget {
   RecentChats({Key key}) : super(key: key);
@@ -137,6 +139,18 @@ class _RecentChatsState extends State<RecentChats> {
   void _handleMenuClick(String value) {
     switch (value) {
       case 'My Profile':
+        FirebaseStorage.instance
+            .ref("users/${userObject.id}/displayPic")
+            .getDownloadURL()
+            .then((value) {
+          userObject.displayPic = value;
+        }).then((value) {
+          Navigator.of(_context).push(MaterialPageRoute(
+              builder: (_context) => MyProfilePage(
+                    userObject: userObject,
+                  )));
+        });
+
         break;
       case 'Verification':
         confirmTitleAndStatusForVerification(0);

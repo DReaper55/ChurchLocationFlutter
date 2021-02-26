@@ -118,9 +118,9 @@ class _NearestChurchState extends State<NearestChurch> {
           target: LatLng(nearestChurch.churchLat, nearestChurch.churchLng),
           zoom: 15)));
 
-      setState(() {
+      /*setState(() {
         isMarkerOnScreen = true;
-      });
+      });*/
     }
 
     return _marker;
@@ -149,9 +149,10 @@ class _NearestChurchState extends State<NearestChurch> {
             location.onLocationChanged.listen((event) {
               currentLatLong = LatLng(event.latitude, event.longitude);
 
-              isMarkerOnScreen == false ??
-                  _animateInitialCamera(
-                      controller, LatLng(event.latitude, event.longitude));
+              !isMarkerOnScreen
+                  ? _animateInitialCamera(
+                      controller, LatLng(event.latitude, event.longitude))
+                  : null;
             });
 
             await _getNearestChurch();
@@ -196,8 +197,8 @@ class _NearestChurchState extends State<NearestChurch> {
                   if (mController != null) {
                     mController.animateCamera(CameraUpdate.newCameraPosition(
                         CameraPosition(
-                            target: LatLng(currentPosition.latitude,
-                                currentPosition.longitude),
+                            target: LatLng(currentLatLong.latitude,
+                                currentLatLong.longitude),
                             zoom: 20)));
                   }
                 },
@@ -213,7 +214,9 @@ class _NearestChurchState extends State<NearestChurch> {
                 child: Icon(Icons.location_searching),
                 onPressed: () {
                   if (!_marker.visible) _showMarker();
-                  isMarkerOnScreen = true;
+                  setState(() {
+                    isMarkerOnScreen = true;
+                  });
                 },
                 backgroundColor: Theme.of(context).accentColor,
                 foregroundColor: Colors.white,
@@ -251,7 +254,9 @@ class _NearestChurchState extends State<NearestChurch> {
               child: Text('Yes'),
               onPressed: () {
                 if (!_marker.visible) _showMarker();
-                isMarkerOnScreen = true;
+                setState(() {
+                  isMarkerOnScreen = true;
+                });
                 Navigator.of(context).pop();
               },
             ),

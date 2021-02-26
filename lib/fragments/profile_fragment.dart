@@ -18,7 +18,7 @@ class ProfileFragment extends StatefulWidget {
 }
 
 class _ProfileFragmentState extends State<ProfileFragment> {
-  String uid = FirebaseAuth.instance.currentUser.uid;
+  User user = FirebaseAuth.instance.currentUser;
   String _image;
 
   bool isVerified = false;
@@ -33,9 +33,9 @@ class _ProfileFragmentState extends State<ProfileFragment> {
 
     _checkTitleVerificationStatus();
 
-    if (uid != null) {
+    if (user != null) {
       FirebaseStorage.instance
-          .ref("users/$uid/displayPic")
+          .ref("users/${user.uid}/displayPic")
           .getDownloadURL()
           .then((value) {
         setState(() {
@@ -52,10 +52,10 @@ class _ProfileFragmentState extends State<ProfileFragment> {
       });
     });
 
-    if (uid != null) {
+    if (user != null) {
       FirebaseDatabase.instance
           .reference()
-          .child("users/$uid")
+          .child("users/${user.uid}")
           .onValue
           .listen((event) {
         UserObject userObject = UserObject.fromMap(event.snapshot.value);

@@ -47,8 +47,8 @@ class ChurchDistance {
   ChurchDistance.fromJson(Map<String, dynamic> list) {
     this.state = list['state'];
     this.churchName = list['churchName'];
-    this.churchLat = double.parse(list['churchLat']);
-    this.churchLng = double.parse(list['churchLng']);
+    this.churchLat = list['churchLat'];
+    this.churchLng = list['churchLng'];
     this.about = list['about'];
     this.address = list['address'];
     this.country = list['country'];

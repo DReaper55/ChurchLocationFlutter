@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_church_location/messenger/chat_screen.dart';
 import 'package:flutter_church_location/models/user_object.dart';
 
 import 'package:intl/intl.dart';
@@ -377,7 +378,12 @@ class _UserInfoPageState extends State<UserInfoPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => null,
+        onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ChatScreen(
+                      userObject: widget.userObject,
+                    ))),
         child: Icon(Icons.chat),
       ),
     );

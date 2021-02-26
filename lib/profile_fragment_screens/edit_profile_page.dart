@@ -174,6 +174,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 color: Colors.black,
               ),
             ),
+            //
+            //...........................User Hobby..........................
+            //
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -203,6 +206,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         borderRadius: BorderRadius.circular(10.0))),
               ),
             ),
+            //
+            //...........................User Bio..........................
+            //
             Padding(
               padding: const EdgeInsets.only(top: 40.0),
               child: Text(

@@ -28,11 +28,11 @@ class _HomeState extends State<Home> {
 
     SavedUserDB savedUserDB = SavedUserDB.instance;
 
-    String uid = FirebaseAuth.instance.currentUser.uid;
-    if (uid != null) {
+    User user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
       FirebaseDatabase.instance
           .reference()
-          .child("users/$uid")
+          .child("users/${user.uid}")
           .onValue
           .listen((event) {
         UserObject userObject = UserObject.fromMap(event.snapshot.value);
